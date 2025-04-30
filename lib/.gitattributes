@@ -1,0 +1,15 @@
+# Auto normalize text files to LF
+* text=auto
+
+# Flutter/Dart files
+*.dart text eol=lf
+
+# Platform-specific files
+*.sh text eol=lf
+*.gradle text eol=lf
+*.kts text eol=lf
+*.swift text eol=lf
+*.cmake text eol=lf
+*.cc text eol=lf
+*.h text eol=lf
+*.json text eol=lf

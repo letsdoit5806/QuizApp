@@ -1,5 +1,5 @@
 class QuizSummary {
-  final String id;  // keep id here
+  final String id; // keep id here
   final String title;
   final int totalQuestions;
   final int totalMarks;
@@ -24,6 +24,17 @@ class QuizSummary {
       category: json['category'],
       description: json['description'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'totalQuestions': totalQuestions,
+      'totalMarks': totalMarks,
+      'category': category,
+      'description': description,
+    };
   }
 }
 

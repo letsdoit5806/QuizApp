@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/services/auth_services.dart';
+import 'package:quiz_app/views/home_page.dart';
+import 'package:quiz_app/views/quiz_list_page.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -15,12 +18,37 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState!.validate()) {
       if (isLogin) {
-        print("Logging in with ${_emailController.text} and ${_passwordController.text}");
+        await AuthServices()
+            .signIn(_emailController.text, _passwordController.text)
+            .then((value) {
+              if (value != null) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyHomePage()),
+                );
+              } else {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Login failed')));
+              }
+            });
       } else {
-        print("Signing up ${_nameController.text} with ${_emailController.text}");
+        await AuthServices()
+            .signUp(
+              _nameController.text,
+              _emailController.text,
+              _passwordController.text,
+            )
+            .then(
+              (value) => {
+                setState(() {
+                  isLogin = true;
+                }),
+              },
+            );
       }
     }
   }
@@ -31,11 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
       appBar: AppBar(
         title: const Text(
           "Quiz app",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-            
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
       // Gradient background
@@ -51,7 +75,9 @@ class _AuthScreenState extends State<AuthScreen> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               elevation: 8,
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
@@ -75,7 +101,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             labelText: 'Name',
                             prefixIcon: Icon(Icons.person),
                           ),
-                          validator: (value) => value!.isEmpty ? 'Enter your name' : null,
+                          validator:
+                              (value) =>
+                                  value!.isEmpty ? 'Enter your name' : null,
                         ),
                       const SizedBox(height: 12),
                       TextFormField(
@@ -85,7 +113,11 @@ class _AuthScreenState extends State<AuthScreen> {
                           prefixIcon: Icon(Icons.email),
                         ),
                         keyboardType: TextInputType.emailAddress,
-                        validator: (value) => value!.contains('@') ? null : 'Enter a valid email',
+                        validator:
+                            (value) =>
+                                value!.contains('@')
+                                    ? null
+                                    : 'Enter a valid email',
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
@@ -95,7 +127,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           prefixIcon: Icon(Icons.lock),
                         ),
                         obscureText: true,
-                        validator: (value) => value!.length < 6 ? 'Password too short' : null,
+                        validator:
+                            (value) =>
+                                value!.length < 6 ? 'Password too short' : null,
                       ),
                       const SizedBox(height: 24),
                       ElevatedButton(
@@ -123,7 +157,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               : 'Already have an account? Login',
                           style: const TextStyle(color: Colors.grey),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

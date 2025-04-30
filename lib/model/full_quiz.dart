@@ -22,9 +22,10 @@ class FullQuizDto {
       description: json['description'],
       category: json['category'],
       difficulty: json['difficulty'],
-      questions: (json['questions'] as List)
-          .map((question) => QuestionDto.fromJson(question))
-          .toList(),
+      questions:
+          (json['questions'] as List)
+              .map((question) => QuestionDto.fromJson(question))
+              .toList(),
     );
   }
 
@@ -73,5 +74,20 @@ class QuestionDto {
       'correctAnswer': correctAnswer,
       'explanation': explanation,
     };
+  }
+}
+
+class CorrectAns {
+  final String questionID;
+  final int ans;
+
+  CorrectAns({required this.questionID, required this.ans});
+
+  factory CorrectAns.fromJson(Map<String, dynamic> json) {
+    return CorrectAns(questionID: json['questionID'], ans: json['ans']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'questionID': questionID, 'ans': ans};
   }
 }

@@ -74,7 +74,7 @@ class _QuizScreenState extends State<QuizScreen> {
     try {
       final attemptId = await QuizService.submitQuizAttempt(
         quizId: quiz!.id,
-        userId: 'user123', // Replace with actual user ID
+        userId: 'user123', // Replace with actual user ID in backend
         answers: answers,
       );
 

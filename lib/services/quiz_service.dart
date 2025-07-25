@@ -9,7 +9,7 @@ import 'package:quiz_app/model/user_attempt.dart' as userAttempt show Answer;
 // Import FullQuizDto
 
 class QuizService {
-  static const String baseurl = "https://186d-27-59-100-69.ngrok-free.app";
+  static const String baseurl = "https://sure-parakeet-joint.ngrok-free.app";
   static const String _baseSummaryUrl = '$baseurl/api/quizzes/all';
   static const String _baseQuizDetailUrl =
       '$baseurl/api/quizzes/'; // NOTE: + {id}

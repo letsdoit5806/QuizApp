@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/services/auth_services.dart';
 import 'package:quiz_app/views/home_page.dart';
-import 'package:quiz_app/views/quiz_list_page.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});

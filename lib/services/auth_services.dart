@@ -6,7 +6,7 @@ import 'package:quiz_app/model/user.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final baseUrl = "https://186d-27-59-100-69.ngrok-free.app";
+  final baseUrl = "https://sure-parakeet-joint.ngrok-free.app";
 
   Future<UserCredential> signUp(
     String name,

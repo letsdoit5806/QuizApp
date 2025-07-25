@@ -110,8 +110,8 @@ class _QuizResultPageState extends State<QuizResultPage> {
                     ),
                     const SizedBox(height: 8),
                     ...List.generate(q.options.length, (index) {
-                      bool isCorrect = correct?.ans == index;
-                      bool isSelected = selected?.selectedAnswer == index;
+                      bool isCorrect = correct.ans == index;
+                      bool isSelected = selected.selectedAnswer == index;
 
                       return ListTile(
                         leading: Icon(
